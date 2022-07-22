@@ -83,7 +83,7 @@
                     break;
                 }
 
-                $offset = $inb['messages'][0]['message'];
+                $offset = $inb['messages'][0]['messageNumber'];
                 $inbox = array_merge($inbox, $inb['messages']);
             }
 
