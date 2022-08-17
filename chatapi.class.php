@@ -1,8 +1,11 @@
 <?php
     namespace Mike4ip;
 
+    use Illuminate\Support\Facades\Http;
+
     /**
      * Class ChatApi
+     *
      * @package Mike4ip
      */
     class ChatApi
@@ -301,6 +304,11 @@
         public function sendMessage($chat, $text)
         {
             return json_decode($this->query('sendMessage', ['chatId' => $chat, 'body' => $text]), 1)['sent'];
+        }
+
+        public function sendList($url, $token, $body)
+        {
+            return Http::withBody($body, 'application/json')->post($url.'/sendList?token='.$token);
         }
 
         /**
