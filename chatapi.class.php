@@ -308,7 +308,7 @@
 
         public function sendList($url, $token, $body)
         {
-            return Http::withBody($body, 'application/json')->post($url.'/sendList?token='.$token);
+            return Http::withBody(json_encode($body), 'application/json')->post($url.'/sendList?token='.$token);
         }
 
         /**
