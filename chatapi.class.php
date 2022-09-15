@@ -306,6 +306,11 @@
             return json_decode($this->query('sendMessage', ['chatId' => $chat, 'body' => $text]), 1)['sent'];
         }
 
+        public function sendTemplate($url, $token, $body)
+        {
+            return Http::withBody(json_encode($body), 'application/json')->post($url.'/sendTemplate?token='.$token);
+        }
+
         public function sendList($url, $token, $body)
         {
             return Http::withBody(json_encode($body), 'application/json')->post($url.'/sendList?token='.$token);
