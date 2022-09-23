@@ -312,6 +312,27 @@
             return;
         }
 
+        /**
+         * Send message to client chat (by not phone but chat ID) or if client not in WhatsApp, send message to admin
+         * @param string $chat
+         * @param string $text
+         * @return boolean
+         */
+        public function sendMessageOrNotifyAdmin($chat, $text, $adminChat, $adminText)
+        {
+            $message = json_decode($this->query('sendMessage', ['chatId' => $chat, 'body' => $text]), 1);
+
+            if (array_key_exists('sent', $message)) {
+                return $message;
+            } else {
+                return json_decode($this->query('sendMessage',
+                    [
+                        'chatId' => $adminChat,
+                        'body'   => "$adminText",
+                    ]), 1);
+            }
+        }
+
         public function sendTemplate($url, $token, $body)
         {
             return Http::withBody(json_encode($body), 'application/json')->post($url.'/sendTemplate?token='.$token);
