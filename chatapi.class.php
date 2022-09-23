@@ -303,7 +303,13 @@
          */
         public function sendMessage($chat, $text)
         {
-            return json_decode($this->query('sendMessage', ['chatId' => $chat, 'body' => $text]), 1)['sent'];
+            $message = json_decode($this->query('sendMessage', ['chatId' => $chat, 'body' => $text]), 1);
+
+            if(array_key_exists('sent', $message)) {
+                return $message;
+            }
+
+            return;
         }
 
         public function sendTemplate($url, $token, $body)
